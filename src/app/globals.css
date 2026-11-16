@@ -1131,3 +1131,332 @@ main {
     transition: none;
   }
 }
+
+/* ---------- Project deck (swipeable cards) ---------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.projects-deck {
+  position: relative;
+  padding: 104px 0 128px;
+  overflow: clip;
+  background:
+    radial-gradient(70% 60% at 50% 0%, #1e211a 0%, transparent 70%),
+    #121311;
+}
+.deck-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 0 6.944% 44px;
+}
+.deck-head h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  font:
+    44px/1.1 var(--font-display),
+    sans-serif;
+  letter-spacing: -1.2px;
+}
+.deck-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 7px 7px 22px;
+  border-radius: 999px;
+  background: #fcf6ec;
+  color: #191918;
+  font-size: 16px;
+  letter-spacing: -0.4px;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px -12px #000c;
+  transition: transform 0.2s;
+}
+.deck-all:hover {
+  transform: translateY(-2px);
+}
+.deck-all-arrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #191918;
+  font-size: 15px;
+}
+.deck-stage {
+  --deck-step: 60%;
+  --deck-depth: 130px;
+  --deck-angle: 16deg;
+  --deck-shrink: 0.07;
+  --drag: 0px;
+  position: relative;
+  height: clamp(440px, 33vw, 512px);
+  display: grid;
+  place-items: center;
+  perspective: 1900px;
+  perspective-origin: 50% 42%;
+  transform: translateX(var(--drag));
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+.deck-stage:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 10px;
+  border-radius: 26px;
+}
+.deck-stage.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+.deck-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(272px, 25vw, 392px);
+  height: clamp(398px, 31vw, 496px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #1b1c1a;
+  border: 1px solid #ffffff1f;
+  box-shadow:
+    0 40px 70px -30px #000e,
+    0 2px 0 #ffffff12 inset;
+  transform: translate(-50%, -50%) translateX(calc(var(--d) * var(--deck-step)))
+    translateZ(calc(var(--abs) * -1 * var(--deck-depth)))
+    rotateY(calc(var(--d) * -1 * var(--deck-angle)))
+    scale(calc(1 - var(--abs) * var(--deck-shrink)));
+  opacity: calc(1 - var(--abs) * 0.3);
+  filter: brightness(calc(1 - var(--abs) * 0.32));
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s ease,
+    filter 0.5s ease;
+  will-change: transform;
+}
+.deck-card[data-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.deck-card.is-active {
+  opacity: 1;
+  filter: none;
+  cursor: pointer;
+}
+.deck-media {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  background: #0d0e0c;
+}
+.deck-media img {
+  object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.deck-card.is-active:hover .deck-media img {
+  transform: scale(1.045);
+}
+.deck-body {
+  flex: 0 0 auto;
+  padding: 20px 22px 24px;
+  background: #1b1c1a;
+  border-top: 1px solid #ffffff12;
+}
+.deck-tags {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b7bbad;
+  margin-bottom: 10px;
+}
+.deck-body h3 {
+  font:
+    26px/1.1 var(--font-display),
+    sans-serif;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+.deck-desc {
+  font-size: 14px;
+  line-height: 1.45;
+  letter-spacing: -0.2px;
+  color: #a8ac9f;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.deck-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 36px;
+}
+.deck-nav {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid #ffffff2b;
+  background: #ffffff0f;
+  color: #f4f4ee;
+  font-size: 17px;
+  padding: 0;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+.deck-nav:hover {
+  background: #ffffff1f;
+  border-color: #ffffff4d;
+}
+.deck-nav:active {
+  transform: scale(0.94);
+}
+.deck-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 8px;
+}
+.deck-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff3d;
+  transition:
+    width 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.3s;
+}
+.deck-dot:hover {
+  background: #ffffff73;
+}
+.deck-dot.is-active {
+  width: 22px;
+  background: var(--accent);
+}
+.deck-pause-icon {
+  display: flex;
+  gap: 4px;
+}
+.deck-pause-icon i {
+  display: block;
+  width: 3px;
+  height: 13px;
+  border-radius: 1px;
+  background: currentColor;
+}
+.deck-play {
+  width: 0;
+  height: 0;
+  margin-left: 3px;
+  border-left: 11px solid currentColor;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+html[data-motion="off"] .deck-stage,
+html[data-motion="off"] .deck-card,
+html[data-motion="off"] .deck-media img {
+  transition: none;
+}
+@media (max-width: 1100px) {
+  .deck-head h2 {
+    font-size: 36px;
+  }
+  .deck-card {
+    width: clamp(260px, 31vw, 340px);
+    height: clamp(380px, 42vw, 452px);
+  }
+  .deck-body h3 {
+    font-size: 23px;
+  }
+}
+@media (max-width: 900px) {
+  .projects-deck {
+    padding: 76px 0 96px;
+  }
+  .deck-head {
+    margin: 0 6% 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .deck-head h2 {
+    font-size: clamp(26px, 7vw, 34px);
+    flex-wrap: wrap;
+    gap: 10px 14px;
+  }
+  .deck-head h2 .section-label {
+    font-size: 20px;
+  }
+  .deck-stage {
+    --deck-step: 84%;
+    --deck-depth: 90px;
+    --deck-angle: 12deg;
+    --deck-shrink: 0.05;
+    height: 452px;
+  }
+  .deck-card {
+    width: min(78vw, 330px);
+    height: 440px;
+    border-radius: 18px;
+  }
+  .deck-card[data-abs="2"] {
+    display: none;
+  }
+  .deck-body {
+    padding: 16px 18px 20px;
+  }
+  .deck-body h3 {
+    font-size: 22px;
+  }
+  .deck-desc {
+    font-size: 13.5px;
+    -webkit-line-clamp: 2;
+  }
+  .deck-controls {
+    margin-top: 26px;
+    /* Keep the arrows clear of the floating "Let's talk" badge in the corner. */
+    transform: translateX(-26px);
+  }
+  /* The floating "Let's talk" badge sits in this corner on phones. */
+  .deck-pause {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .deck-stage,
+  .deck-card,
+  .deck-media img {
+    transition: none;
+  }
+}

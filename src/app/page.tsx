@@ -5,6 +5,8 @@ import { TalkButton } from "@/components/talk-button";
 import { MotionControl } from "@/components/motion-control";
 import { MobileMenu } from "@/components/mobile-menu";
 import { ShootingStars } from "@/components/shooting-stars";
+import { ProjectDeck } from "@/components/project-deck";
+import { featuredProjects } from "@/data/featured-projects";
 
 export default function Home() {
   return (
@@ -26,6 +28,7 @@ export default function Home() {
         </a>
         <nav aria-label="Main navigation">
           <a href="#about">About</a>
+          <a href="#projects">Projects</a>
           <Link href="/work">Work</Link>
           <a href="#contact">Contact</a>
         </nav>
@@ -135,6 +138,7 @@ export default function Home() {
             </Link>
           </div>
         </section>
+        <ProjectDeck items={featuredProjects} />
         <footer id="contact">
           <div>
             <p className="section-label">[/contact]</p>
