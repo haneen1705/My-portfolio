@@ -166,6 +166,8 @@ html[data-motion="off"] .mobile-menu {
   --accent: #a9dc07;
   --text: #fff;
   --muted: #d0d0cf;
+  /* Height of the nav legibility scrim; content below it stays undimmed. */
+  --header-scrim: 186px;
   color-scheme: dark;
 }
 
@@ -307,8 +309,8 @@ span {
   position: fixed;
   z-index: -1;
   inset: 0 0 auto;
-  height: 220px;
-  background: linear-gradient(#000 10%, #000c 55%, transparent);
+  height: var(--header-scrim);
+  background: linear-gradient(#000 75%, #0008 88%, transparent);
   pointer-events: none;
 }
 .role {
@@ -363,7 +365,8 @@ span {
 }
 .hero h1 {
   position: absolute;
-  top: 23.33%;
+  /* Stay below the fixed header scrim so the scrim never dims the heading. */
+  top: max(23.33%, var(--header-scrim));
   left: 50%;
   transform: translateX(-50%);
   width: 600px;
@@ -426,7 +429,9 @@ footer h2 span {
   isolation: isolate;
   min-height: 1002px;
   height: 69.58vw;
-  max-height: 1200px;
+  /* No fixed cap: the portrait is sized from the width, so a capped section
+     would clip her head and let the image sit over the heading. */
+  max-height: none;
   margin-top: -16px;
   overflow: clip;
   background: #191918;
@@ -587,11 +592,13 @@ footer h2 span {
 }
 .curved-arrow {
   position: absolute;
-  right: calc(100% + 24px);
-  top: calc(100% + 32px);
+  /* Kept small and pushed into the open space between the portrait and the
+     name so it never crosses Haneen's portrait. */
+  left: -15%;
+  top: calc(100% + 44px);
   transform: rotate(-9.99deg);
-  width: 313px;
-  height: 161px;
+  width: clamp(140px, 11.5vw, 185px);
+  height: auto;
   object-fit: contain;
   pointer-events: none;
 }
@@ -600,25 +607,29 @@ footer h2 span {
   z-index: 6;
   right: max(24px, env(safe-area-inset-right));
   bottom: max(24px, env(safe-area-inset-bottom));
-  width: 104px;
-  height: 104px;
+  width: 120px;
+  height: 120px;
   display: grid;
   place-items: center;
 }
 .talk-ring {
   position: absolute;
   inset: 0;
-  width: 104px;
-  height: 104px;
+  width: 120px;
+  height: 120px;
   animation: orbit 18s linear infinite;
   overflow: visible;
 }
 .talk-ring text {
   fill: #fff;
-  font:
-    15px Inter,
-    Arial,
-    sans-serif;
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.talk-ring .talk-ring-accent {
+  fill: var(--accent);
+  font-weight: 700;
 }
 .talk-center {
   display: grid;
@@ -807,7 +818,7 @@ html[data-motion="off"] {
     gap: 28px;
   }
   .hero h1 {
-    top: 18%;
+    top: max(18%, var(--header-scrim));
     font-size: 56px;
   }
   .about {
@@ -839,12 +850,13 @@ html[data-motion="off"] {
     font-size: 26px;
     letter-spacing: -1.4px;
   }
-  .curved-arrow {
-    width: 240px;
-    height: 124px;
-  }
   .hero-bottom > p {
     font-size: 26px;
+  }
+  /* Narrow desktops leave no gap between the portrait and the button,
+     so the arrow is dropped rather than laid over either of them. */
+  .curved-arrow {
+    display: none;
   }
   .follow > p {
     font-size: 20px;
@@ -899,7 +911,7 @@ html[data-motion="off"] {
     object-position: 50% center;
   }
   .hero h1 {
-    top: clamp(100px, 17%, 122px);
+    top: max(clamp(100px, 17%, 122px), calc(var(--header-scrim) + 12px));
     font-size: clamp(30px, 7.8vw, 48px);
     line-height: 1.12;
     width: 95%;
@@ -1059,10 +1071,6 @@ main {
 .talk-ring {
   transform-origin: center;
 }
-.curved-arrow {
-  height: auto;
-  width: 298.654px;
-}
 @media (min-width: 901px) and (max-width: 1600px) {
   .about {
     min-height: 0;
@@ -1093,16 +1101,13 @@ main {
     margin-top: 0.972vw;
     margin-right: 2.083vw;
   }
-  .curved-arrow {
-    width: 18vw;
-  }
   .identity {
     right: 11.97%;
   }
 }
 @media (max-width: 900px) {
-  .header:before {
-    height: 160px;
+  :root {
+    --header-scrim: 118px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
