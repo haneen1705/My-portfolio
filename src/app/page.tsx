@@ -32,7 +32,6 @@ export default function Home() {
         </a>
         <nav aria-label="Main navigation">
           <a href="#about">About</a>
-          <a href="#projects">Projects</a>
           <Link href="/work">Work</Link>
           <a href="#contact">Contact</a>
         </nav>

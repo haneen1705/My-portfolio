@@ -11,3 +11,7 @@ Section tags explicitly use the locally loaded Inter family, avoiding inheritanc
 - [x] Center the Projects carousel's previous/next arrows and pagination beneath the cards on mobile and desktop, without an off-center pause button or phone-only horizontal offset.
 
 Removed the phone-only left shift and positioned the desktop pause control outside the centered navigation group's layout. Verified exact arrow and pagination centering at 360px, 390px, 900px and 1440px viewport widths, plus working previous/next navigation and desktop pause. Typecheck and production build pass.
+
+- [x] Remove the duplicate Projects link from desktop and mobile navigation, leaving Work and the remaining links unchanged. Keep the Projects section itself.
+
+Verified desktop navigation is About / Work / Contact and the mobile menu is Home / Work / About / Contact. Work still links to `/work`, and the Projects carousel remains on the homepage. Typecheck and production build pass.

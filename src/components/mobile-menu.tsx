@@ -77,9 +77,6 @@ export function MobileMenu() {
             <a href="#about" onClick={close}>
               About
             </a>
-            <a href="#projects" onClick={close}>
-              Projects
-            </a>
             <a href="#contact" onClick={close}>
               Contact
             </a>
