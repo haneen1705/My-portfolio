@@ -1306,11 +1306,13 @@ main {
   overflow: hidden;
 }
 .deck-controls {
+  position: relative;
+  width: max-content;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 36px;
+  margin: 36px auto 0;
 }
 .deck-nav {
   width: 46px;
@@ -1359,6 +1361,12 @@ main {
 .deck-dot.is-active {
   width: 22px;
   background: var(--accent);
+}
+.deck-pause {
+  /* Keep the arrow-and-dot group centered independently of this extra control. */
+  position: absolute;
+  right: -56px;
+  top: 0;
 }
 .deck-pause-icon {
   display: flex;
@@ -1441,8 +1449,6 @@ html[data-motion="off"] .deck-media img {
   }
   .deck-controls {
     margin-top: 26px;
-    /* Keep the arrows clear of the floating "Let's talk" badge in the corner. */
-    transform: translateX(-26px);
   }
   /* The floating "Let's talk" badge sits in this corner on phones. */
   .deck-pause {
