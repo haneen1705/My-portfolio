@@ -519,6 +519,7 @@ footer h2 span {
   text-wrap: initial;
 }
 .section-label {
+  font-family: var(--font-body), Arial, sans-serif;
   font-size: 28px;
   font-weight: 400;
   letter-spacing: 0;
