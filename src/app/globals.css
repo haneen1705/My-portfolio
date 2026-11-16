@@ -1001,7 +1001,8 @@ html[data-motion="off"] {
     font-size: 40px;
     white-space: normal;
   }
-  .identity .button {
+  .identity .button,
+  .deck-all {
     font-size: 16px;
     min-height: 50px;
   }
@@ -1186,32 +1187,10 @@ main {
     sans-serif;
   letter-spacing: -1.2px;
 }
+/* Uses the shared skeuomorphic .button treatment from the About section. */
 .deck-all {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 7px 7px 7px 22px;
-  border-radius: 999px;
-  background: #fcf6ec;
-  color: #191918;
-  font-size: 16px;
-  letter-spacing: -0.4px;
+  flex-shrink: 0;
   white-space: nowrap;
-  box-shadow: 0 10px 24px -12px #000c;
-  transition: transform 0.2s;
-}
-.deck-all:hover {
-  transform: translateY(-2px);
-}
-.deck-all-arrow {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #191918;
-  font-size: 15px;
 }
 .deck-stage {
   --deck-step: 60%;

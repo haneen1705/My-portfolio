@@ -112,11 +112,9 @@ export function ProjectDeck({ items }: { items: FeaturedProject[] }) {
         <h2>
           <span className="section-label">[/projects]</span>a look at my projects
         </h2>
-        <Link className="deck-all" href="/work">
+        <Link className="button deck-all" href="/work">
           View all projects
-          <span className="deck-all-arrow" aria-hidden="true">
-            ↗
-          </span>
+          <img src="/assets/aa06c.svg" width="24" height="24" alt="" />
         </Link>
       </div>
 
