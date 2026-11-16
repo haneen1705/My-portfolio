@@ -346,6 +346,7 @@ span {
   view-timeline: --hero block;
 }
 .hero {
+  --hero-recede-travel: min(80%, 80svh);
   height: min(70.83vw, 1100px);
   min-height: 700px;
   position: relative;
@@ -765,13 +766,15 @@ footer h2 {
       animation-timeline: --hero;
       /* Let a tall Hero finish entering before slowing it, keeping its links reachable. */
       animation-range: exit 0% exit 100%;
+      /* Keep scroll updates on the compositor instead of repainting the hero. */
+      will-change: transform;
     }
     @keyframes hero-recede {
       from {
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
       }
       to {
-        transform: translateY(min(80%, 80svh));
+        transform: translate3d(0, var(--hero-recede-travel), 0);
       }
     }
   }
@@ -794,6 +797,7 @@ footer h2 {
 html[data-motion="off"] .hero,
 html[data-motion="off"] .portrait {
   animation: none;
+  will-change: auto;
 }
 html[data-motion="off"] .talk-ring {
   animation-play-state: paused;
@@ -908,9 +912,9 @@ html[data-motion="off"] {
     height: 100vh;
     height: 100svh;
     max-height: none;
-    /* The scroll-driven recede is expensive on phone GPUs; normal scrolling
-       reads better there anyway. */
-    animation: none;
+    /* Preserve parallax, but don't cancel 80% of a swipe like on desktop.
+       A stable svh distance avoids jumps when browser toolbars collapse. */
+    --hero-recede-travel: 24svh;
   }
   .hero-media,
   .hero-shade {
