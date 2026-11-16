@@ -11,7 +11,7 @@ export function MotionControl() {
   );
   return (
     <button
-      className="motion-control"
+      className="button motion-control"
       type="button"
       onClick={() => {
         document.documentElement.dataset.motion = paused ? "on" : "off";
