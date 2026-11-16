@@ -8,6 +8,10 @@ import { ShootingStars } from "@/components/shooting-stars";
 import { ProjectDeck } from "@/components/project-deck";
 import { featuredProjects } from "@/data/featured-projects";
 
+/* 24px preview of the hero, shown instantly while the full image streams in. */
+const HERO_BLUR =
+  "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQBACdASoYABEAPu1irFAppSQisBgIATAdiWUAxNgQ8NegwsWO/iZGHg+ToIAA/uvyVXZJOu5ncYWO5ctikBG16haxgT6lnJP0tzbE+vUCBk7mAAy6Usonzf+IH1pjW0HofeUe9qCwAA==";
+
 export default function Home() {
   return (
     <>
@@ -44,7 +48,9 @@ export default function Home() {
               fill
               sizes="100vw"
               priority
-              quality={90}
+              quality={82}
+              placeholder="blur"
+              blurDataURL={HERO_BLUR}
             />
           </div>
           <div className="hero-shade" />

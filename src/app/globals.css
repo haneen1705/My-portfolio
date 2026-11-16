@@ -902,9 +902,15 @@ html[data-motion="off"] {
     margin-top: 24px;
   }
   .hero {
-    min-height: 520px;
-    height: 78svh;
-    max-height: 720px;
+    /* Fill the phone screen instead of stopping at 78svh / 720px. svh keeps
+       iOS toolbars from resizing the hero as they slide in and out. */
+    min-height: 560px;
+    height: 100vh;
+    height: 100svh;
+    max-height: none;
+    /* The scroll-driven recede is expensive on phone GPUs; normal scrolling
+       reads better there anyway. */
+    animation: none;
   }
   .hero-media,
   .hero-shade {
@@ -1114,6 +1120,12 @@ main {
 @media (max-width: 900px) {
   :root {
     --header-scrim: 118px;
+  }
+  /* Cheaper to composite than a 14px blur while the page scrolls on a phone. */
+  .header:before {
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    backdrop-filter: blur(8px) saturate(120%);
+    background: linear-gradient(#000000d1 0%, #000000a1 62%, transparent 100%);
   }
 }
 @media (prefers-reduced-motion: reduce) {
